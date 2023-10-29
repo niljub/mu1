@@ -1,9 +1,4 @@
-Certainly! Below is a template for your GitHub README file for your mu1 project:
-
-```
 # mu1 Simulator
-
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A graphical simulation of the mu1 processor designed to aid students in understanding its operations.
 
@@ -31,13 +26,6 @@ MU1 Simulator is a visual tool designed to help students comprehend the function
 
 To use the MU1 Simulator, follow these steps:
 
-Certainly! If you used Svelte for your mu1 project, you can modify the installation section as follows:
-
-```markdown
-## Installation
-
-To use the mu1 Simulator, follow these steps:
-
 1. Clone the repository:
    ```
    git clone https://github.com/niljub/mu1.git
@@ -59,7 +47,7 @@ To use the mu1 Simulator, follow these steps:
    ```
    npm run dev
    ```
-```
+
 
 
 ## Usage
@@ -84,5 +72,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Feel free to reach out to us for any queries or suggestions. Happy simulating!
 
-```
+
 
