@@ -1,153 +1,73 @@
 <script>
 	import { onMount } from "svelte";
 
+	import { drawArrow } from "$lib/components/helpers/draw";
+
+	import { Register } from "$lib/components/mu1/register";
+
 	let mu1 = {
 		memory: new Uint8Array(4096),
 		pc: 0,
 		acc: 0,
 	};
 
-	function initialize() {
-		mu1.pc = 0;
-		mu1.acc = 0;
-		// Initialize memory and other components
-	}
+	let registers = {
+		acc : new Register('ACC', 125, 300),
+		sp : new Register('SP', 250, 300),
+		pc: new Register('PC', 375, 300),
+		ir: new Register('IR',700 , 300),
+		din: new Register('Din',825, 300),
+		dout: new Register('Dout',250, 100),
+	};
 
-	function loadProgram(program) {
-		if (program.length > 4096) {
-			console.log("Program size exceeds memory capacity.");
-			return;
-		}
-		for (let i = 0; i < program.length; i++) {
-			mu1.memory[i] = program[i];
-		}
-	}
 
-	function emulateStep() {
-		const instruction = mu1.memory[mu1.pc];
-		switch (instruction) {
-			case 0x01: // Load value into accumulator
-				mu1.acc = mu1.memory[mu1.pc + 1];
-				mu1.pc += 2;
-				drawStuff(mu1.acc, mu1.pc);
-				break;
-			case 0x02: // Store accumulator value to memory
-				mu1.memory[mu1.pc + 1] = mu1.acc;
-				mu1.pc += 2;
-				drawStuff(mu1.acc, mu1.pc);
-				break;
-			case 0x03: // Add value to accumulator
-				mu1.acc += mu1.memory[mu1.pc + 1];
-				mu1.pc += 2;
-				drawStuff(mu1.acc, mu1.pc);
-				break;
-			// Add more cases for other instructions
-			default:
-				console.log("Unknown instruction encountered.");
-				return;
-		}
-	}
 
 	onMount(() => {
-		const program = [0x01, 0x05, 0x03, 0x08, 0x02, 0x00]; // Sample program bytes
-		loadProgram(program);
-		drawStuff();
+		
+		const program = [0x01, 0x05, 0x03, 0x03, 0x02, 0x00]; // Sample program bytes
+		drawCanvas();
 	});
-	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
-		if (typeof stroke == "undefined") {
-			stroke = true;
-		}
-		if (typeof radius === "undefined") {
-			radius = 5;
-		}
-		ctx.beginPath();
-		ctx.moveTo(x + radius, y);
-		ctx.lineTo(x + width - radius, y);
-		ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-		ctx.lineTo(x + width, y + height - radius);
-		ctx.quadraticCurveTo(
-			x + width,
-			y + height,
-			x + width - radius,
-			y + height
-		);
-		ctx.lineTo(x + radius, y + height);
-		ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-		ctx.lineTo(x, y + radius);
-		ctx.quadraticCurveTo(x, y, x + radius, y);
-		ctx.moveTo(25, -100);
 
-		ctx.closePath();
-		if (stroke) {
-			ctx.stroke();
-		}
-		if (fill) {
-			ctx.fill();
-		}
+
+
+	//start turning end
+
+
+
+
+	function drawCanvas(accValue = "NULL", spValue = "NULL", pcValue = "NULL") {
+		registers.acc.drawRegister(accValue);
+		registers.sp.drawRegister(spValue);
+		registers.pc.drawRegister(pcValue);
+		registers.dout.drawRegister(pcValue);
+		registers.ir.drawRegister(pcValue);
+		registers.din.drawRegister(pcValue);
+
+		var test = [[175,350],[175,400],[300, 400],[300, 410]];
+		var test2 = [[175,300],[175,250],[300, 250]];
+
+		var test3 = [[300,350], [300, 400]];
+		var test4 = [[425,350],[425,400],[300, 400],[300, 410]];
+		var test5 = [[300,300],[300,150]];
+
+
+
+		drawArrow(test);
+		drawArrow(test2);
+		drawArrow(test3);
+		drawArrow(test4);
+		drawArrow(test5);
+
+
+
 	}
 
-	function drawAcc(value) {
-		if (document.getElementById("myCanvas") != null) {
-			const canvas = document.getElementById("myCanvas");
-			const ctx = canvas.getContext("2d");
-			
-			var rectX = 25;
-			var rectY = 450;
-
-			ctx.lineWidth = 4;
-			ctx.strokeStyle = "#000000";
-			ctx.fillStyle = "#abc";
-			roundRect(ctx, rectX, rectY, 100, 50, 10, true);
-			ctx.font = "20px Georgia";
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.fillStyle = "#000000";
-			var rectHeight = 50;
-			var rectWidth = 100;
-			ctx.fillText(value, rectX + rectWidth / 2, rectY + rectHeight / 2);
-			ctx.fillText("ACC", rectX + rectWidth / 2, rectY-15);
-		} else {
-			alert("Canvas not found!");
-		}
-	}
-
-
-	function drawPc(value) {
-		if (document.getElementById("myCanvas") != null) {
-			const canvas = document.getElementById("myCanvas");
-			const ctx = canvas.getContext("2d");
-			
-			var rectX = 150;
-			var rectY = 450;
-			
-			ctx.lineWidth = 4;
-			ctx.strokeStyle = "#000000";
-			ctx.fillStyle = "#abc";
-			roundRect(ctx, rectX, rectY, 100, 50, 10, true);
-			ctx.font = "20px Georgia";
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.fillStyle = "#000000";
-			var rectHeight = 50;
-			var rectWidth = 100;
-			ctx.fillText(value, rectX + rectWidth / 2, rectY + rectHeight / 2);
-			ctx.fillText("PC", rectX + rectWidth / 2, rectY-15);
-		} else {
-			alert("Canvas not found!");
-		}
-	}
-
-
-	function drawStuff(acc = "NULL", pc = "NULL"){
-		drawAcc(acc);
-		drawPc(pc);
-	}
 </script>
 
 <div>
 	<canvas
 		id="myCanvas"
-		width="600"
+		width="1000"
 		height="600"
 		style="border:1px solid grey"
 	/>
@@ -155,9 +75,9 @@
 	<h2>Current Values</h2>
 	<p>Accumulator (ACC): {mu1.acc}</p>
 	<p>Program Counter (PC): {mu1.pc}</p>
-	<button on:click={emulateStep}>Step</button>
+	<button>Step</button>
 </div>
 
 <style>
-	/* Add your styles here */
+
 </style>
