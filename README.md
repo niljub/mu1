@@ -31,19 +31,13 @@ To use the MU1 Simulator, follow these steps:
    git clone https://github.com/niljub/mu1.git
    ```
 2. Navigate to the project directory.
+
 3. Install the necessary dependencies by running:
    ```
    npm install
    ```
-4. If you have not installed Svelte globally, you can do so by running:
-   ```
-   npm install -g svelte
-   ```
-5. Once Svelte is installed, build the project by running:
-   ```
-   npm run build
-   ```
-6. Launch the simulator using the following command:
+
+4. Launch the simulator using the following command:
    ```
    npm run dev
    ```
@@ -52,7 +46,7 @@ To use the MU1 Simulator, follow these steps:
 
 ## Usage
 
-Upon launching the simulator, you will be presented with a user-friendly graphical interface that represents the mu1 processor. Interact with the various components to observe how the processor executes instructions and processes data. Adjust the settings to customize the simulation environment according to your learning requirements.
+Upon launching the simulator, you will be presented with a user-friendly graphical interface that represents the mu1 processor under 127.0.0.1:5137. Interact with the various components to observe how the processor executes instructions and processes data. Adjust the settings to customize the simulation environment according to your learning requirements.
 
 ## Contributing
 
